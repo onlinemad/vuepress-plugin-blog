@@ -42,6 +42,7 @@ class Classifiable {
 
     Object.keys(this._metaMap).forEach(name => {
       const { pages, path } = this._metaMap[name];
+      name = decodeURI(name);
       tags.push({ name, pages, path });
     });
     return tags;

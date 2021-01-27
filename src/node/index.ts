@@ -144,7 +144,7 @@ module.exports = (options: BlogPluginOptions, ctx: VuePressContext) => {
                     scopeLayout,
                     DefaultLayoutEnum.FrontmatterPagination
                   ),
-                  title: `${key} ${entryTitle}`,
+                  title: `${decodeURI(key)} ${entryTitle}`,
                 },
               };
             });

@@ -19,14 +19,15 @@ export function curryFrontmatterHandler(
 export function curryFrontmatterHandler(scope, map, path) {
   return (key, pageKey) => {
     if (key) {
-      if (!map[key]) {
-        map[key] = {};
-        map[key].key = key;
-        map[key].scope = scope;
-        map[key].path = `${path}${key}/`;
-        map[key].pageKeys = [];
+      const encodedKey = encodeURI(key)
+      if (!map[encodedKey]) {
+        map[encodedKey] = {};
+        map[encodedKey].key = encodedKey;
+        map[encodedKey].scope = scope;
+        map[encodedKey].path = `${path}${encodedKey}/`;
+        map[encodedKey].pageKeys = [];
       }
-      map[key].pageKeys.push(pageKey);
+      map[encodedKey].pageKeys.push(pageKey);
     }
   };
 }
@@ -137,9 +138,9 @@ const value = id;
 return keys.some(key => {
   const _value = page.frontmatter[key]
   if (Array.isArray(_value)) {
-    return _value.some(i => i == value)
+    return _value.some(i => i == decodeURI(value))
   }
-  return _value == value
+  return _value == decodeURI(value)
 })
     `
   );
